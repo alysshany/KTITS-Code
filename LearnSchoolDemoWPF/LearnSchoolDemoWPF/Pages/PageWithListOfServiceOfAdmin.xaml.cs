@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -32,6 +33,15 @@ namespace LearnSchoolDemoWPF.Pages
         public PageWithListOfServiceOfAdmin()
         {
             InitializeComponent();
+            //var path = @"C:\Users\Zilya\Downloads\Task\Сессия 1\services_s_import\";
+            //foreach (var item in App.Connection.Service.ToArray().Where(i => !string.IsNullOrWhiteSpace(i.MainImagePath)))
+            //{
+            //    var fullPath = path + item.MainImagePath;
+            //    var byteImage = File.ReadAllBytes(fullPath);
+            //    item.MainImageByte = byteImage;
+            //}
+            //App.Connection.SaveChanges();
+
             if (App.isAuth)
             {
                 addingButton.Visibility = Visibility.Visible;

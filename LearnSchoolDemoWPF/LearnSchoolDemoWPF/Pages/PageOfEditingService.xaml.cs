@@ -35,7 +35,6 @@ namespace LearnSchoolDemoWPF.Pages
             InitializeComponent();
             Service = service;
             DataContext = Service;
-            ListOfPhotos.ItemsSource = App.Connection.ServicePhoto.Where(z => z.ID == Service.ID).ToList();
         }
 
         private void BackButton(object sender, RoutedEventArgs e)
@@ -52,18 +51,13 @@ namespace LearnSchoolDemoWPF.Pages
                 OpenFileDialog dialog = new OpenFileDialog();
                 if (dialog.ShowDialog() != null)
                 {
-                    string iName = dialog.FileName;
-                    System.IO.File.Copy(iName, System.IO.Path.Combine(@"Услуги школы", System.IO.Path.GetFileName(iName).ToString()));
-                    imagePath = System.IO.Path.Combine(@"/Услуги школы\\", System.IO.Path.GetFileName(iName));
+                    Images = System.IO.File.ReadAllBytes(dialog.FileName);
                 }
                 btnSelect.Background = Brushes.Gray;
             }
             catch { }
-
-            //Service.MainImagePath = "/Услуги школы\\for company.jpg";
-            //DataContext = Service;
-            //this.NavigationService.Navigate(new PageOfEditingService(Service));
         }
+
 
         private void SavingButton(object sender, RoutedEventArgs e)
         {
@@ -71,6 +65,7 @@ namespace LearnSchoolDemoWPF.Pages
             {
                 if (Service.ID == 0)
                 {
+                    Service.MainImageByte = Images;
                     App.Connection.Service.Add(Service);
                 }
                 

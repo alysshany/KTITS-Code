@@ -72,56 +72,56 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="ADOApp\Client.cs">
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ADOApp\ClientService.cs">
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ADOApp\DocumentByService.cs">
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ADOApp\Gender.cs">
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ADOApp\LearnSchoolModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LearnSchoolModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ADOApp\LearnSchoolModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ADOApp\LearnSchoolModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LearnSchoolModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="ADOApp\Manufacturer.cs">
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ADOApp\ModelOfSchool.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelOfSchool.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ADOApp\ModelOfSchool.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ADOApp\ModelOfSchool.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelOfSchool.edmx</DependentUpon>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ADOApp\PartialClass\Service.cs" />
     <Compile Include="ADOApp\Product.cs">
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ADOApp\ProductPhoto.cs">
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ADOApp\ProductSale.cs">
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ADOApp\Service.cs">
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ADOApp\ServicePhoto.cs">
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ADOApp\sysdiagrams.cs">
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ADOApp\Tag.cs">
-      <DependentUpon>ModelOfSchool.tt</DependentUpon>
+      <DependentUpon>LearnSchoolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -179,12 +179,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="ADOApp\ModelOfSchool.edmx">
+    <EntityDeploy Include="ADOApp\LearnSchoolModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelOfSchool.Designer.cs</LastGenOutput>
+      <LastGenOutput>LearnSchoolModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ADOApp\ModelOfSchool.edmx.diagram">
-      <DependentUpon>ModelOfSchool.edmx</DependentUpon>
+    <None Include="ADOApp\LearnSchoolModel.edmx.diagram">
+      <DependentUpon>LearnSchoolModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -199,16 +199,6 @@
     <Resource Include="school_logo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ADOApp\ModelOfSchool.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelOfSchool.Context.cs</LastGenOutput>
-      <DependentUpon>ModelOfSchool.edmx</DependentUpon>
-    </Content>
-    <Content Include="ADOApp\ModelOfSchool.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelOfSchool.edmx</DependentUpon>
-      <LastGenOutput>ModelOfSchool.cs</LastGenOutput>
-    </Content>
     <Resource Include="Услуги школы\school_logo.png" />
     <Resource Include="Услуги школы\for company.jpg" />
     <Resource Include="Услуги школы\online lessons.jpg" />
@@ -231,6 +221,17 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ADOApp\LearnSchoolModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LearnSchoolModel.edmx</DependentUpon>
+      <LastGenOutput>LearnSchoolModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ADOApp\LearnSchoolModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LearnSchoolModel.edmx</DependentUpon>
+      <LastGenOutput>LearnSchoolModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

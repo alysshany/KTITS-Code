@@ -42,6 +42,10 @@ namespace LearnSchoolDemoWPF.Pages
             this.NavigationService.Navigate(new PageWithListOfServiceOfAdmin());
         }
 
+        /// <summary>
+        /// Image saving method
+        /// </summary>
+
         private void ChoosingImage(object sender, RoutedEventArgs e)
         {
             try

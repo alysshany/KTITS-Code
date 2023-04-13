@@ -33,14 +33,6 @@ namespace LearnSchoolDemoWPF.Pages
         public PageWithListOfServiceOfAdmin()
         {
             InitializeComponent();
-            //var path = @"C:\Users\Zilya\Downloads\Task\Сессия 1\services_s_import\";
-            //foreach (var item in App.Connection.Service.ToArray().Where(i => !string.IsNullOrWhiteSpace(i.MainImagePath)))
-            //{
-            //    var fullPath = path + item.MainImagePath;
-            //    var byteImage = File.ReadAllBytes(fullPath);
-            //    item.MainImageByte = byteImage;
-            //}
-            //App.Connection.SaveChanges();
 
             if (App.isAuth)
             {
@@ -149,18 +141,23 @@ namespace LearnSchoolDemoWPF.Pages
             }
         }
 
+        /// <summary>
+        /// Searching method
+        /// </summary>
+
         private void SearchTextChanged(object sender, TextChangedEventArgs e)
         {
             if (Search.Text == "")
             {
                 SortedServices = Services;
             }
-            ListOfServices.ItemsSource = SortedServices
-                .Where(x => string.Join(" ", x.Title, x.Description).ToLower()
-                .Contains(Search.Text.ToLower()))
-                .ToList();
+            ListOfServices.ItemsSource = SortedServices.Where(x => string.Join(" ", x.Title, x.Description).ToLower().Contains(Search.Text.ToLower())).ToList();
             CountOfServicesUpdate();
         }
+
+        /// <summary>
+        /// Sorting method
+        /// </summary>
 
         private void SortingBoxChanged(object sender, SelectionChangedEventArgs e)
         {

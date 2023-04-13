@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:LearnSchoolDemoWPF.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PageOfUpComing">
+      Title="Ближайшие записи">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -25,7 +25,7 @@
         <StackPanel  Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
             <Image Source="/Услуги школы\school_logo.png" Width="50" Height="50"/>
         </StackPanel>
-        <StackPanel  Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center">
+        <StackPanel  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="Назад" Click="BackButton"></Button>
         </StackPanel>
         <ScrollViewer Grid.Row="1" Grid.Column="1">
@@ -38,21 +38,27 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition ></ColumnDefinition>
                                     <ColumnDefinition ></ColumnDefinition>
+                                    <ColumnDefinition ></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
-                                    <Image Source="{Binding MainImagePath}" Width="100" Height="100" />
+                                    <Label>Наименование</Label>
+                                    <TextBlock Text="{Binding Service.Title}"></TextBlock>
+                                    <Label>Фамилия клиента</Label>
+                                    <TextBlock Text="{Binding Client.FirstName}"></TextBlock>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1">
-                                    <TextBlock Text="{Binding Title}" ></TextBlock>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Cost}"> рублей за</TextBlock>
-                                        <TextBlock Text="{Binding DurationInSeconds}" > секунд</TextBlock>
-                                    </StackPanel>
-                                    <StackPanel x:Name="EditButtons" Orientation="Horizontal" Visibility="Hidden">
-                                        <Button Content="Редактировать"></Button>
-                                        <Button Content="Удалить"></Button>
-                                    </StackPanel>
+                                    <Label>Имя клиента</Label>
+                                    <TextBlock Text="{Binding Client.LastName}"></TextBlock>
+                                    <Label>Отчество клиента</Label>
+                                    <TextBlock Text="{Binding Client.Patronymic}"></TextBlock>
                                 </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <Label>Почта клиента</Label>
+                                    <TextBlock Text="{Binding Client.Email}"></TextBlock>
+                                    <Label>Номер клиента</Label>
+                                    <TextBlock Text="{Binding Client.Phone}"></TextBlock>
+                                </StackPanel>
+
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

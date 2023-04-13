@@ -35,10 +35,18 @@ namespace LearnSchoolDemoWPF.Pages
             if (App.isAuth)
             {
                 addingButton.Visibility = Visibility.Visible;
+                viewUpButton.Visibility = Visibility.Visible;
+                addUpComingButton.Visibility = Visibility.Visible;
+                backPanel.Visibility = Visibility.Visible;
+                codePanel.Visibility = Visibility.Collapsed;
             }
             else
             {
                 addingButton.Visibility = Visibility.Collapsed;
+                viewUpButton.Visibility = Visibility.Collapsed;
+                addUpComingButton.Visibility = Visibility.Collapsed;
+                backPanel.Visibility = Visibility.Collapsed;
+                codePanel.Visibility = Visibility.Visible;
             }
             Services = App.Connection.Service.ToList();
             ListOfServices.ItemsSource = Services;
@@ -53,10 +61,17 @@ namespace LearnSchoolDemoWPF.Pages
             {
                 var service = ListOfServices.SelectedItem as Service;
 
-                App.Connection.Service.Remove(service);
-                App.Connection.SaveChanges();
-                MessageBox.Show("Удалено");
-                this.NavigationService.Navigate(new PageWithListOfServiceOfAdmin());
+                try
+                {
+                    App.Connection.Service.Remove(service);
+                    App.Connection.SaveChanges();
+                    MessageBox.Show("Удалено");
+                    this.NavigationService.Navigate(new PageWithListOfServiceOfAdmin());
+                }
+                catch 
+                {
+                    MessageBox.Show("Нельзя удалить");
+                }
             }
             else
             {
@@ -86,7 +101,16 @@ namespace LearnSchoolDemoWPF.Pages
 
         private void ButtonToViewUpComing(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new PageOfUpComing());
+            if (ListOfServices.SelectedItems.Count == 1)
+            {
+                var service = ListOfServices.SelectedItem as Service;
+
+                this.NavigationService.Navigate(new PageOfUpComing(service));
+            }
+            else
+            {
+                MessageBox.Show("Выберите услугу");
+            }
         }
 
         private void AddClient(object sender, RoutedEventArgs e)
@@ -136,10 +160,10 @@ namespace LearnSchoolDemoWPF.Pages
                     SortedServices = Services;
                     break;
                 case 1:
-                    SortedServices = Services.OrderBy(x => x.Cost).ToList();
+                    SortedServices = Services.OrderBy(x => x.CostWithDiscount).ToList();
                     break;
                 case 2:
-                    SortedServices = Services.OrderByDescending(x => x.Cost).ToList();
+                    SortedServices = Services.OrderByDescending(x => x.CostWithDiscount).ToList();
                     break;
                 case 3:
                     SortedServices = Services.Where(x => x.Discount >= 70 && x.Discount < 100).ToList();

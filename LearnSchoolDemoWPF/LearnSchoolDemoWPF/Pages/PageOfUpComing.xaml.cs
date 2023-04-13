@@ -21,10 +21,10 @@ namespace LearnSchoolDemoWPF.Pages
     /// </summary>
     public partial class PageOfUpComing : Page
     {
-        public PageOfUpComing()
+        public PageOfUpComing(Service service)
         {
             InitializeComponent();
-            ListOfClientServices.ItemsSource = App.Connection.ClientService.Where(z => z.StartTime.Day == DateTime.Today.Day || z.StartTime.Day == DateTime.Today.AddDays(1.0).Day).ToList();
+            ListOfClientServices.ItemsSource = App.Connection.ClientService.Where(z => z.Service.Title == service.Title && (z.StartTime.Year == DateTime.Today.Year && z.StartTime.Month == DateTime.Today.Month && z.StartTime.Day == DateTime.Today.Day)).ToList();
         }
 
         private void BackButton(object sender, RoutedEventArgs e)

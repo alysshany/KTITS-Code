@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:LearnSchoolDemoWPF.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PageWithListOfServiceOfAdmin">
+      Title="Все услуги">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -39,35 +39,38 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button x:Name="addingButton" Content="Добавить" Click="ButtonToAddNewService"></Button>
-            <Button x:Name="viewUpButton" Content="Ближайшие записи" Click="ButtonToViewUpComing"></Button>
+            <Button x:Name="addingButton" Content="Добавить услугу" Click="ButtonToAddNewService" ></Button>
+            <Button x:Name="viewUpButton" Content="Ближайшие записи" Click="ButtonToViewUpComing" ></Button>
+            <Button x:Name="addUpComingButton" Content="Добавить запись" Click="AddClient"></Button>
         </StackPanel>
         <ScrollViewer Grid.Row="1" Grid.Column="1">
             <StackPanel Grid.Row="1" Grid.Column="2">
-                <ListView x:Name="ListOfServices" >
-                    <ListView.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Добавить клиента на запись"
-                                      Click="AddClient"/>
-                        </ContextMenu>
-                    </ListView.ContextMenu>
+                <ListView x:Name="ListOfServices" HorizontalContentAlignment="Stretch">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Height="100">
+                            <Grid Height="100" Background="{Binding ColorDisMethod}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition ></ColumnDefinition>
-                                    <ColumnDefinition ></ColumnDefinition>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0">
-                                    <Image Source="{Binding MainImagePath}" Width="100" Height="100" />
-                                </StackPanel>
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock Text="{Binding Title}" ></TextBlock>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Cost}"> рублей за</TextBlock>
-                                        <TextBlock Text="{Binding DurationInSeconds}" > секунд</TextBlock>
+                                <Image Grid.Column="0" Grid.Row="1" Source="{Binding MainImagePath}" Width="100" Height="100"/>
+                                <StackPanel Grid.Column="1" Background="{Binding ColorDisMethod}" >
+                                    <TextBlock Text="{Binding Title}"></TextBlock>
+                                    <StackPanel Background="{Binding ColorDisMethod}" >
+                                        <StackPanel Orientation="Horizontal"  Background="{Binding ColorDisMethod}">
+                                            <TextBlock Margin="0 0 5 0" TextDecorations="Strikethrough" Text="{Binding Cost}" Visibility="{Binding HavingDiscount}"></TextBlock>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0:F0} рублей за {1}">
+                                                        <Binding Path="CostWithDiscount" />
+                                                        <Binding Path="DurationInMinutes" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding DiscountShowing}"></TextBlock>
                                     </StackPanel>
-                                    <StackPanel x:Name="EditButtons" Orientation="Horizontal" >
+                                    <StackPanel x:Name="EditButtons" Orientation="Horizontal"  Background="{Binding ColorDisMethod}">
                                         <Button x:Name="editingButton" Visibility="{Binding Visibility}" Content="Редактировать" Click="EditingService"></Button>
                                         <Button x:Name="deletingButton" Visibility="{Binding Visibility}" Content="Удалить" Click="DeletingService"></Button>
                                     </StackPanel>
@@ -81,9 +84,12 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="2">
             <TextBlock x:Name="CountOfServices"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel x:Name="codePanel" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Content="Введите код"></Label>
             <TextBox x:Name="ForCodeBox" KeyDown="ForCodeBoxKeyDown" Width="90"></TextBox>
+        </StackPanel>
+        <StackPanel x:Name="backPanel" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Content="Выйти"></Button>
         </StackPanel>
     </Grid>
 </Page>

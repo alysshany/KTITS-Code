@@ -23,6 +23,7 @@ namespace LearnSchoolDemoWPF.Pages
     public partial class PageOfClientServiceAdding : Page
     {
         public Service Service { get; set; }
+        public string TimeForNow = " 12:00";
 
         public PageOfClientServiceAdding(Service service)
         {
@@ -53,6 +54,8 @@ namespace LearnSchoolDemoWPF.Pages
 
             App.Connection.ClientService.Add(clientService);
             App.Connection.SaveChanges();
+
+            MessageBox.Show("Успешно");
         }
     }
 }

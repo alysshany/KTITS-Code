@@ -19,29 +19,10 @@
                 <Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
             </Style>
             <Style TargetType="TextBlock">
-                <!--<Setter Property="Foreground" Value="Black"/>-->
-                <!--<Setter Property="Background">
-                    <Setter.Value>
-                        <SolidColorBrush>
-                            <SolidColorBrush.Color>
-                                <Color A="255" R="4" G="160" B="255"/>
-                            </SolidColorBrush.Color>
-                        </SolidColorBrush>
-                    </Setter.Value>
-                </Setter>-->
                 <Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
             </Style>
             <Style TargetType="TextBox">
                 <Setter Property="Foreground" Value="Black"/>
-                <!--<Setter Property="Background">
-                    <Setter.Value>
-                        <SolidColorBrush>
-                            <SolidColorBrush.Color>
-                                <Color A="255" R="231" G="250" B="191"/>
-                            </SolidColorBrush.Color>
-                        </SolidColorBrush>
-                    </Setter.Value>
-                </Setter>-->
                 <Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
             </Style>
             <Style TargetType="ComboBox">

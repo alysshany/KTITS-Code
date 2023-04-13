@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:LearnSchoolDemoWPF.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PageOfEditingService">
+      Title="Данные услуги">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -22,23 +22,43 @@
         <StackPanel  Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
             <Image Source="/Услуги школы\school_logo.png" Width="50" Height="50"/>
         </StackPanel>
-        <StackPanel  Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center">
+        <StackPanel  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="Назад" Click="BackButton"></Button>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <Label>Название</Label>
-            <TextBox x:Name="TxtTitle" Text="{Binding Title}"></TextBox>
-            <Label>Стоимость</Label>
-            <TextBox x:Name="TxtCost" Text="{Binding Cost}"></TextBox>
-            <Label>Длительность</Label>
-            <TextBox x:Name="TxtDuration" Text="{Binding DurationInSeconds}"></TextBox>
-            <Label>Описание</Label>
-            <TextBox x:Name="TxtDesc" Text="{Binding Description}"></TextBox>
-            <Label>Скидка</Label>
-            <TextBox x:Name="TxtDisc" Text="{Binding Discount}"></TextBox>
-            <Label>Картинка</Label>
-            <Button x:Name="SelectButton" Content="Выбрать картинку" Click="ChoosingImage"></Button>
-        </StackPanel>
+        <ScrollViewer Grid.Row="1" Grid.Column="1">
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <Image Source="{Binding MainImagePath}" Width="200" Height="140" HorizontalAlignment="Left"/>
+                    <StackPanel>
+                        <Label>Название</Label>
+                        <TextBox x:Name="TxtTitle" Text="{Binding Title}"></TextBox>
+                        <Label>Стоимость</Label>
+                        <TextBox x:Name="TxtCost" Text="{Binding Cost}"></TextBox>
+                        <Label>Длительность</Label>
+                        <TextBox x:Name="TxtDuration" Text="{Binding DurationInSeconds}"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+                <Label>Описание</Label>
+                <TextBox x:Name="TxtDesc" Text="{Binding Description}"></TextBox>
+                <Label>Скидка</Label>
+                <TextBox x:Name="TxtDisc" Text="{Binding Discount}"></TextBox>
+                <Label>Картинка</Label>
+                <Button x:Name="SelectButton" Content="Выбрать картинку" Click="ChoosingImage"></Button>
+
+                <ListView x:Name="ListOfPhotos" HorizontalContentAlignment="Stretch">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding PhotoPath}" Width="100" Height="100"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Добавить картинку" ></Button>
+                    <Button Content="Выбрать картинку" Click="ChoosingImage"></Button>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
         <StackPanel  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Content="Изменение услуги"></Label>
         </StackPanel>

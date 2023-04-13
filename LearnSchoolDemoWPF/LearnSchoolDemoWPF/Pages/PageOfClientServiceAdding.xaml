@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:LearnSchoolDemoWPF.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PageOfClientServiceAdding">
+      Title="Запись клиента на услугу">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -25,7 +25,7 @@
         <StackPanel  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Content="Запись клиента на услугу"></Label>
         </StackPanel>
-        <StackPanel  Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center">
+        <StackPanel  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="Назад" Click="BackButton"></Button>
         </StackPanel>
         <ScrollViewer Grid.Row="1" Grid.Column="1">
@@ -46,9 +46,10 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                <Label>Дата</Label>
                 <DatePicker x:Name="Date"></DatePicker>
                 <Label>Время</Label>
-                <TextBox x:Name="Time"></TextBox>
+                <TextBox x:Name="Time" Text="{Binding TimeForNow, StringFormat={}{{HH:mm}}}"></TextBox>
             </StackPanel>
         </ScrollViewer>
         <StackPanel Grid.Row="2" Grid.Column="1">

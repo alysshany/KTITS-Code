@@ -1,0 +1,95 @@
+﻿<Window x:Class="CalculatorWPFApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalculatorWPFApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\Zilya\Desktop\Mesh-91.png"></ImageBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <RadioButton x:Name="gradRadio" IsChecked="True" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center"></RadioButton>
+        <Label Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" Content="ГРАДУСЫ" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="20"></Label>
+        <RadioButton x:Name="radRadio" Grid.Column="4" Grid.Row="3" HorizontalAlignment="Center"></RadioButton>
+        <Label Grid.Column="5" Grid.Row="3" HorizontalAlignment="Center" Content="РАДИАНЫ" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="20"></Label>
+
+        <TextBlock Background="AliceBlue" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="9" x:Name="textBlock" FontSize="38"></TextBlock>
+        <Button Content="INV" Margin="5 2 5 2" Grid.Row="4" Grid.Column="1" Style="{DynamicResource RoundButton}" Click="ClickToInvers"></Button>
+        <Button Content="LN" Margin="5 2 5 2" Grid.Row="4" Grid.Column="2" Style="{DynamicResource RoundButton}" Click="ClickToExp"></Button>
+        <Button Content="(" Margin="5 2 5 2" Grid.Row="4" Grid.Column="3" Style="{DynamicResource RoundButton}" Click="ClickToNumber"></Button>
+        <Button Content=")" Margin="5 2 5 2" Grid.Row="4" Grid.Column="4" Style="{DynamicResource RoundButton}" Click="ClickToNumber"></Button>
+        <Button Content="DELETE" Margin="5 2 5 2" Grid.Row="4" Grid.Column="5" Style="{DynamicResource RoundButton}" Click="DeleteClick"></Button>
+        <Button Content="CE" Margin="5 2 5 2" Grid.Row="4" Grid.Column="6" Style="{DynamicResource RoundButton}" Click="EmptyClick"></Button>
+        <Button Content="C" Margin="5 2 5 2" Grid.Row="4" Grid.Column="7" Style="{DynamicResource RoundButton}" Click="EmptyClick"></Button>
+        <Button Content="±" Margin="5 2 5 2" Grid.Row="4" Grid.Column="8" Style="{DynamicResource RoundButton}" Click="ClickToPlusMinus"></Button>
+        <Button Content="SQRT" Margin="5 2 5 2" Grid.Row="4" Grid.Column="9" Style="{DynamicResource RoundButton}" Click="ClickToExp"></Button>
+
+        <Button Content="SINH" Margin="5 2 5 2" Grid.Row="5" Grid.Column="1" Style="{DynamicResource RoundButton}" Click="ClickToExpThatCanBeRad"></Button>
+        <Button Content="SIN" Margin="5 2 5 2" Grid.Row="5" Grid.Column="2" Style="{DynamicResource RoundButton}" Click="ClickToExpThatCanBeRad"></Button>
+        <Button Content="^2" Margin="5 2 5 2" Grid.Row="5" Grid.Column="3" Style="{DynamicResource RoundButton}" Click="ClickRouteThree"></Button>
+        <Button Content="!" Margin="5 2 5 2" Grid.Row="5" Grid.Column="4" Style="{DynamicResource RoundButton}" Click="ClickToFactorial"></Button>
+        <Button Content="7" Margin="5 2 5 2" Background="White" Grid.Row="5" Grid.Column="5" Click="ClickToNum" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="8" Margin="5 2 5 2" Background="White" Grid.Row="5" Grid.Column="6" Click="ClickToNum" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="9" Margin="5 2 5 2" Background="White" Grid.Row="5" Grid.Column="7" Click="ClickToNum" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="/" Margin="5 2 5 2" Grid.Row="5" Grid.Column="8" Style="{DynamicResource RoundButton}" Click="ClickToNumber"></Button>
+        <Button Content="%" Margin="5 2 5 2" Grid.Row="5" Grid.Column="9" Style="{DynamicResource RoundButton}" Click="ClickToPercent"></Button>
+
+        <Button Content="COSH" Margin="5 2 5 2" Grid.Row="6" Grid.Column="1" Style="{DynamicResource RoundButton}" Click="ClickToExpThatCanBeRad"></Button>
+        <Button Content="COS" Margin="5 2 5 2" Grid.Row="6" Grid.Column="2" Style="{DynamicResource RoundButton}" Click="ClickToExpThatCanBeRad"></Button>
+        <Button Content="^" Margin="5 2 5 2" Grid.Row="6" Grid.Column="3" Style="{DynamicResource RoundButton}" Click="ClickToNumber"></Button>
+        <Button Content="y√x" Margin="5 2 5 2" Grid.Row="6" Grid.Column="4" Style="{DynamicResource RoundButton}" Click="ClickToNumberRou"></Button>
+        <Button Content="4" Margin="5 2 5 2" Background="White" Grid.Row="6" Grid.Column="5" Click="ClickToNum" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="5" Margin="5 2 5 2" Background="White" Grid.Row="6" Grid.Column="6" Click="ClickToNum" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="6" Margin="5 2 5 2" Background="White" Grid.Row="6" Grid.Column="7" Click="ClickToNum" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="*" Margin="5 2 5 2" Grid.Row="6" Grid.Column="8" Style="{DynamicResource RoundButton}" Click="ClickToNumber"></Button>
+        <Button Content="1/x" Margin="5 2 5 2" Grid.Row="6" Grid.Column="9" Style="{DynamicResource RoundButton}" Click="ClickToInvers"></Button>
+
+
+        <Button Content="TANH" Margin="5 2 5 2" Grid.Row="7" Grid.Column="1" Click="ClickToExpThatCanBeRad" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="TAN" Margin="5 2 5 2" Grid.Row="7" Grid.Column="2" Click="ClickToExpThatCanBeRad" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="^3" Margin="5 2 5 2" Grid.Row="7" Grid.Column="3" Click="ClickRouteThree" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="∛x" Margin="5 2 5 2" Grid.Row="7" Grid.Column="4" Click="ClickThree" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="1" Margin="5 2 5 2" Background="White" Grid.Row="7" Grid.Column="5" Click="ClickToNum" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="2" Margin="5 2 5 2" Background="White" Grid.Row="7" Grid.Column="6" Click="ClickToNum" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="3" Margin="5 2 5 2" Background="White" Grid.Row="7" Grid.Column="7" Click="ClickToNum" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="-" Margin="5 2 5 2" Grid.Row="7" Grid.Column="8" Click="ClickToNumber" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="=" Margin="5 2 5 2" Grid.Row="7" Grid.Column="9" Grid.RowSpan="2" Click="ClickToEquals" Style="{DynamicResource RoundButton}"></Button>
+
+        <Button Content="EXP" Margin="5 2 5 2" Grid.Row="8" Grid.Column="1" Style="{DynamicResource RoundButton}" Click="ClickToExp"></Button>
+        <Button Content="MOD" Margin="5 2 5 2" Grid.Row="8" Grid.Column="2" Style="{DynamicResource RoundButton}" Click="ClickToNumber"></Button>
+        <Button Content="LOG" Margin="5 2 5 2" Grid.Row="8" Grid.Column="3" Style="{DynamicResource RoundButton}" Click="ClickToExp"></Button>
+        <Button Content="EEX" Margin="5 2 5 2" Grid.Row="8" Grid.Column="4" Style="{DynamicResource RoundButton}" Click="ClickToExp"></Button>
+        <Button Content="PI" Margin="5 2 5 2" Grid.Row="8" Grid.Column="5" Style="{DynamicResource RoundButton}" Click="ClickToPi"></Button>
+        <Button Content="0" Margin="5 2 5 2" Background="White" Grid.Row="8" Grid.Column="6" Click="ClickToNum" Style="{DynamicResource RoundButton}"></Button>
+        <Button Content="," Margin="5 2 5 2" Grid.Row="8" Grid.Column="7" Style="{DynamicResource RoundButton}" Click="ClickToPoint"></Button>
+        <Button Content="+" Margin="5 2 5 2" Grid.Row="8" Grid.Column="8" Style="{DynamicResource RoundButton}" Click="ClickToNumber"></Button>
+    </Grid>
+</Window>

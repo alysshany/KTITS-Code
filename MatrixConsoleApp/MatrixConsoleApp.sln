@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixConsoleApp", "MatrixConsoleApp\MatrixConsoleApp.csproj", "{7BA1A40C-A9C6-4609-A7EB-C058B4F36508}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BA1A40C-A9C6-4609-A7EB-C058B4F36508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BA1A40C-A9C6-4609-A7EB-C058B4F36508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BA1A40C-A9C6-4609-A7EB-C058B4F36508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BA1A40C-A9C6-4609-A7EB-C058B4F36508}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {00CECC31-AB9D-4AFE-B319-B8F56C949E29}
+	EndGlobalSection
+EndGlobal

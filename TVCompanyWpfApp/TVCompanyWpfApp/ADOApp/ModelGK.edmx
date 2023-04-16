@@ -1,0 +1,744 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище TVCompanyModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="Account_Id" />
+          </Key>
+          <Property Name="Account_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Advertisements">
+          <Key>
+            <PropertyRef Name="Advertisement_Id" />
+          </Key>
+          <Property Name="Advertisement_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DesiredShowTime_Id" Type="int" Nullable="false" />
+          <Property Name="Duration" Type="float" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="AgeRestriction_Id" Type="int" Nullable="false" />
+          <Property Name="User_Id" Type="int" />
+          <Property Name="IsPurchased" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdvertisementShows">
+          <Key>
+            <PropertyRef Name="AdvertisementShow_Id" />
+          </Key>
+          <Property Name="AdvertisementShow_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Advertisement_Id" Type="int" Nullable="false" />
+          <Property Name="Ether_Id" Type="int" Nullable="false" />
+          <Property Name="StartTime" Type="float" Nullable="false" />
+          <Property Name="EndTime" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AgeRestrictions">
+          <Key>
+            <PropertyRef Name="AgeRestriction_Id" />
+          </Key>
+          <Property Name="AgeRestriction_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MinAge" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Balances">
+          <Key>
+            <PropertyRef Name="Balace_Id" />
+          </Key>
+          <Property Name="Balace_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Balance" Type="float" Nullable="false" />
+          <Property Name="InternalCurrency" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Broadcasts">
+          <Key>
+            <PropertyRef Name="Broadcast_Id" />
+          </Key>
+          <Property Name="Broadcast_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AgeRestriction_Id" Type="int" Nullable="false" />
+          <Property Name="Leading" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DesiredShowTimes">
+          <Key>
+            <PropertyRef Name="DesiredShowTime_Id" />
+          </Key>
+          <Property Name="DesiredShowTime_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartTime" Type="float" Nullable="false" />
+          <Property Name="EndTime" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ethers">
+          <Key>
+            <PropertyRef Name="Ether_Id" />
+          </Key>
+          <Property Name="Ether_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Role_Id" />
+          </Key>
+          <Property Name="Role_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransferShows">
+          <Key>
+            <PropertyRef Name="TransferShow_Id" />
+          </Key>
+          <Property Name="TransferShow_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Broadcast_Id" Type="int" Nullable="false" />
+          <Property Name="Ether_Id" Type="int" Nullable="false" />
+          <Property Name="StartTime" Type="float" Nullable="false" />
+          <Property Name="EndTime" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Balance_Id" Type="int" />
+          <Property Name="Account_Id" Type="int" Nullable="false" />
+          <Property Name="Role_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Advertisements_AgeRestrictions">
+          <End Role="AgeRestrictions" Type="Self.AgeRestrictions" Multiplicity="1" />
+          <End Role="Advertisements" Type="Self.Advertisements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgeRestrictions">
+              <PropertyRef Name="AgeRestriction_Id" />
+            </Principal>
+            <Dependent Role="Advertisements">
+              <PropertyRef Name="AgeRestriction_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Advertisements_DesiredShowTimes">
+          <End Role="DesiredShowTimes" Type="Self.DesiredShowTimes" Multiplicity="1" />
+          <End Role="Advertisements" Type="Self.Advertisements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DesiredShowTimes">
+              <PropertyRef Name="DesiredShowTime_Id" />
+            </Principal>
+            <Dependent Role="Advertisements">
+              <PropertyRef Name="DesiredShowTime_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Advertisements_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Advertisements" Type="Self.Advertisements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Advertisements">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdvertisementShows_Advertisements">
+          <End Role="Advertisements" Type="Self.Advertisements" Multiplicity="1" />
+          <End Role="AdvertisementShows" Type="Self.AdvertisementShows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Advertisements">
+              <PropertyRef Name="Advertisement_Id" />
+            </Principal>
+            <Dependent Role="AdvertisementShows">
+              <PropertyRef Name="Advertisement_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdvertisementShows_Ethers">
+          <End Role="Ethers" Type="Self.Ethers" Multiplicity="1" />
+          <End Role="AdvertisementShows" Type="Self.AdvertisementShows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ethers">
+              <PropertyRef Name="Ether_Id" />
+            </Principal>
+            <Dependent Role="AdvertisementShows">
+              <PropertyRef Name="Ether_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Broadcasts_AgeRestrictions">
+          <End Role="AgeRestrictions" Type="Self.AgeRestrictions" Multiplicity="1" />
+          <End Role="Broadcasts" Type="Self.Broadcasts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgeRestrictions">
+              <PropertyRef Name="AgeRestriction_Id" />
+            </Principal>
+            <Dependent Role="Broadcasts">
+              <PropertyRef Name="AgeRestriction_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransferShows_Broadcasts">
+          <End Role="Broadcasts" Type="Self.Broadcasts" Multiplicity="1" />
+          <End Role="TransferShows" Type="Self.TransferShows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broadcasts">
+              <PropertyRef Name="Broadcast_Id" />
+            </Principal>
+            <Dependent Role="TransferShows">
+              <PropertyRef Name="Broadcast_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransferShows_Ethers">
+          <End Role="Ethers" Type="Self.Ethers" Multiplicity="1" />
+          <End Role="TransferShows" Type="Self.TransferShows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ethers">
+              <PropertyRef Name="Ether_Id" />
+            </Principal>
+            <Dependent Role="TransferShows">
+              <PropertyRef Name="Ether_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Account_Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Account_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Balances">
+          <End Role="Balances" Type="Self.Balances" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Balances">
+              <PropertyRef Name="Balace_Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Balance_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Role_Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TVCompanyModelContainer">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Advertisements" EntityType="Self.Advertisements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdvertisementShows" EntityType="Self.AdvertisementShows" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgeRestrictions" EntityType="Self.AgeRestrictions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Balances" EntityType="Self.Balances" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Broadcasts" EntityType="Self.Broadcasts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DesiredShowTimes" EntityType="Self.DesiredShowTimes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ethers" EntityType="Self.Ethers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransferShows" EntityType="Self.TransferShows" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Advertisements_AgeRestrictions" Association="Self.FK_Advertisements_AgeRestrictions">
+            <End Role="AgeRestrictions" EntitySet="AgeRestrictions" />
+            <End Role="Advertisements" EntitySet="Advertisements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Advertisements_DesiredShowTimes" Association="Self.FK_Advertisements_DesiredShowTimes">
+            <End Role="DesiredShowTimes" EntitySet="DesiredShowTimes" />
+            <End Role="Advertisements" EntitySet="Advertisements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Advertisements_Users" Association="Self.FK_Advertisements_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Advertisements" EntitySet="Advertisements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdvertisementShows_Advertisements" Association="Self.FK_AdvertisementShows_Advertisements">
+            <End Role="Advertisements" EntitySet="Advertisements" />
+            <End Role="AdvertisementShows" EntitySet="AdvertisementShows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdvertisementShows_Ethers" Association="Self.FK_AdvertisementShows_Ethers">
+            <End Role="Ethers" EntitySet="Ethers" />
+            <End Role="AdvertisementShows" EntitySet="AdvertisementShows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Broadcasts_AgeRestrictions" Association="Self.FK_Broadcasts_AgeRestrictions">
+            <End Role="AgeRestrictions" EntitySet="AgeRestrictions" />
+            <End Role="Broadcasts" EntitySet="Broadcasts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransferShows_Broadcasts" Association="Self.FK_TransferShows_Broadcasts">
+            <End Role="Broadcasts" EntitySet="Broadcasts" />
+            <End Role="TransferShows" EntitySet="TransferShows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransferShows_Ethers" Association="Self.FK_TransferShows_Ethers">
+            <End Role="Ethers" EntitySet="Ethers" />
+            <End Role="TransferShows" EntitySet="TransferShows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Accounts" Association="Self.FK_Users_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Balances" Association="Self.FK_Users_Balances">
+            <End Role="Balances" EntitySet="Balances" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TVCompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="Account_Id" />
+          </Key>
+          <Property Name="Account_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Accounts" FromRole="Accounts" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Advertisements">
+          <Key>
+            <PropertyRef Name="Advertisement_Id" />
+          </Key>
+          <Property Name="Advertisement_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DesiredShowTime_Id" Type="Int32" Nullable="false" />
+          <Property Name="Duration" Type="Double" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="AgeRestriction_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_Id" Type="Int32" />
+          <Property Name="IsPurchased" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AgeRestrictions" Relationship="Self.FK_Advertisements_AgeRestrictions" FromRole="Advertisements" ToRole="AgeRestrictions" />
+          <NavigationProperty Name="DesiredShowTimes" Relationship="Self.FK_Advertisements_DesiredShowTimes" FromRole="Advertisements" ToRole="DesiredShowTimes" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Advertisements_Users" FromRole="Advertisements" ToRole="Users" />
+          <NavigationProperty Name="AdvertisementShows" Relationship="Self.FK_AdvertisementShows_Advertisements" FromRole="Advertisements" ToRole="AdvertisementShows" />
+        </EntityType>
+        <EntityType Name="AdvertisementShows">
+          <Key>
+            <PropertyRef Name="AdvertisementShow_Id" />
+          </Key>
+          <Property Name="AdvertisementShow_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Advertisement_Id" Type="Int32" Nullable="false" />
+          <Property Name="Ether_Id" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="Double" Nullable="false" />
+          <Property Name="EndTime" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Advertisements" Relationship="Self.FK_AdvertisementShows_Advertisements" FromRole="AdvertisementShows" ToRole="Advertisements" />
+          <NavigationProperty Name="Ethers" Relationship="Self.FK_AdvertisementShows_Ethers" FromRole="AdvertisementShows" ToRole="Ethers" />
+        </EntityType>
+        <EntityType Name="AgeRestrictions">
+          <Key>
+            <PropertyRef Name="AgeRestriction_Id" />
+          </Key>
+          <Property Name="AgeRestriction_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MinAge" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Advertisements" Relationship="Self.FK_Advertisements_AgeRestrictions" FromRole="AgeRestrictions" ToRole="Advertisements" />
+          <NavigationProperty Name="Broadcasts" Relationship="Self.FK_Broadcasts_AgeRestrictions" FromRole="AgeRestrictions" ToRole="Broadcasts" />
+        </EntityType>
+        <EntityType Name="Balances">
+          <Key>
+            <PropertyRef Name="Balace_Id" />
+          </Key>
+          <Property Name="Balace_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Balance" Type="Double" Nullable="false" />
+          <Property Name="InternalCurrency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Balances" FromRole="Balances" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Broadcasts">
+          <Key>
+            <PropertyRef Name="Broadcast_Id" />
+          </Key>
+          <Property Name="Broadcast_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AgeRestriction_Id" Type="Int32" Nullable="false" />
+          <Property Name="Leading" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="AgeRestrictions" Relationship="Self.FK_Broadcasts_AgeRestrictions" FromRole="Broadcasts" ToRole="AgeRestrictions" />
+          <NavigationProperty Name="TransferShows" Relationship="Self.FK_TransferShows_Broadcasts" FromRole="Broadcasts" ToRole="TransferShows" />
+        </EntityType>
+        <EntityType Name="DesiredShowTimes">
+          <Key>
+            <PropertyRef Name="DesiredShowTime_Id" />
+          </Key>
+          <Property Name="DesiredShowTime_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartTime" Type="Double" Nullable="false" />
+          <Property Name="EndTime" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Advertisements" Relationship="Self.FK_Advertisements_DesiredShowTimes" FromRole="DesiredShowTimes" ToRole="Advertisements" />
+        </EntityType>
+        <EntityType Name="Ethers">
+          <Key>
+            <PropertyRef Name="Ether_Id" />
+          </Key>
+          <Property Name="Ether_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="AdvertisementShows" Relationship="Self.FK_AdvertisementShows_Ethers" FromRole="Ethers" ToRole="AdvertisementShows" />
+          <NavigationProperty Name="TransferShows" Relationship="Self.FK_TransferShows_Ethers" FromRole="Ethers" ToRole="TransferShows" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Role_Id" />
+          </Key>
+          <Property Name="Role_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="TransferShows">
+          <Key>
+            <PropertyRef Name="TransferShow_Id" />
+          </Key>
+          <Property Name="TransferShow_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Broadcast_Id" Type="Int32" Nullable="false" />
+          <Property Name="Ether_Id" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="Double" Nullable="false" />
+          <Property Name="EndTime" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Broadcasts" Relationship="Self.FK_TransferShows_Broadcasts" FromRole="TransferShows" ToRole="Broadcasts" />
+          <NavigationProperty Name="Ethers" Relationship="Self.FK_TransferShows_Ethers" FromRole="TransferShows" ToRole="Ethers" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Balance_Id" Type="Int32" />
+          <Property Name="Account_Id" Type="Int32" Nullable="false" />
+          <Property Name="Role_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK_Users_Accounts" FromRole="Users" ToRole="Accounts" />
+          <NavigationProperty Name="Advertisements" Relationship="Self.FK_Advertisements_Users" FromRole="Users" ToRole="Advertisements" />
+          <NavigationProperty Name="Balances" Relationship="Self.FK_Users_Balances" FromRole="Users" ToRole="Balances" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK_Users_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Account_Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Account_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Advertisements_AgeRestrictions">
+          <End Role="AgeRestrictions" Type="Self.AgeRestrictions" Multiplicity="1" />
+          <End Role="Advertisements" Type="Self.Advertisements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgeRestrictions">
+              <PropertyRef Name="AgeRestriction_Id" />
+            </Principal>
+            <Dependent Role="Advertisements">
+              <PropertyRef Name="AgeRestriction_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Advertisements_DesiredShowTimes">
+          <End Role="DesiredShowTimes" Type="Self.DesiredShowTimes" Multiplicity="1" />
+          <End Role="Advertisements" Type="Self.Advertisements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DesiredShowTimes">
+              <PropertyRef Name="DesiredShowTime_Id" />
+            </Principal>
+            <Dependent Role="Advertisements">
+              <PropertyRef Name="DesiredShowTime_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Advertisements_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Advertisements" Type="Self.Advertisements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Advertisements">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdvertisementShows_Advertisements">
+          <End Role="Advertisements" Type="Self.Advertisements" Multiplicity="1" />
+          <End Role="AdvertisementShows" Type="Self.AdvertisementShows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Advertisements">
+              <PropertyRef Name="Advertisement_Id" />
+            </Principal>
+            <Dependent Role="AdvertisementShows">
+              <PropertyRef Name="Advertisement_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdvertisementShows_Ethers">
+          <End Role="Ethers" Type="Self.Ethers" Multiplicity="1" />
+          <End Role="AdvertisementShows" Type="Self.AdvertisementShows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ethers">
+              <PropertyRef Name="Ether_Id" />
+            </Principal>
+            <Dependent Role="AdvertisementShows">
+              <PropertyRef Name="Ether_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Broadcasts_AgeRestrictions">
+          <End Role="AgeRestrictions" Type="Self.AgeRestrictions" Multiplicity="1" />
+          <End Role="Broadcasts" Type="Self.Broadcasts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgeRestrictions">
+              <PropertyRef Name="AgeRestriction_Id" />
+            </Principal>
+            <Dependent Role="Broadcasts">
+              <PropertyRef Name="AgeRestriction_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Balances">
+          <End Role="Balances" Type="Self.Balances" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Balances">
+              <PropertyRef Name="Balace_Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Balance_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransferShows_Broadcasts">
+          <End Role="Broadcasts" Type="Self.Broadcasts" Multiplicity="1" />
+          <End Role="TransferShows" Type="Self.TransferShows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broadcasts">
+              <PropertyRef Name="Broadcast_Id" />
+            </Principal>
+            <Dependent Role="TransferShows">
+              <PropertyRef Name="Broadcast_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransferShows_Ethers">
+          <End Role="Ethers" Type="Self.Ethers" Multiplicity="1" />
+          <End Role="TransferShows" Type="Self.TransferShows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ethers">
+              <PropertyRef Name="Ether_Id" />
+            </Principal>
+            <Dependent Role="TransferShows">
+              <PropertyRef Name="Ether_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Role_Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TVCompanyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" />
+          <EntitySet Name="Advertisements" EntityType="Self.Advertisements" />
+          <EntitySet Name="AdvertisementShows" EntityType="Self.AdvertisementShows" />
+          <EntitySet Name="AgeRestrictions" EntityType="Self.AgeRestrictions" />
+          <EntitySet Name="Balances" EntityType="Self.Balances" />
+          <EntitySet Name="Broadcasts" EntityType="Self.Broadcasts" />
+          <EntitySet Name="DesiredShowTimes" EntityType="Self.DesiredShowTimes" />
+          <EntitySet Name="Ethers" EntityType="Self.Ethers" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="TransferShows" EntityType="Self.TransferShows" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Users_Accounts" Association="Self.FK_Users_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Advertisements_AgeRestrictions" Association="Self.FK_Advertisements_AgeRestrictions">
+            <End Role="AgeRestrictions" EntitySet="AgeRestrictions" />
+            <End Role="Advertisements" EntitySet="Advertisements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Advertisements_DesiredShowTimes" Association="Self.FK_Advertisements_DesiredShowTimes">
+            <End Role="DesiredShowTimes" EntitySet="DesiredShowTimes" />
+            <End Role="Advertisements" EntitySet="Advertisements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Advertisements_Users" Association="Self.FK_Advertisements_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Advertisements" EntitySet="Advertisements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdvertisementShows_Advertisements" Association="Self.FK_AdvertisementShows_Advertisements">
+            <End Role="Advertisements" EntitySet="Advertisements" />
+            <End Role="AdvertisementShows" EntitySet="AdvertisementShows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdvertisementShows_Ethers" Association="Self.FK_AdvertisementShows_Ethers">
+            <End Role="Ethers" EntitySet="Ethers" />
+            <End Role="AdvertisementShows" EntitySet="AdvertisementShows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Broadcasts_AgeRestrictions" Association="Self.FK_Broadcasts_AgeRestrictions">
+            <End Role="AgeRestrictions" EntitySet="AgeRestrictions" />
+            <End Role="Broadcasts" EntitySet="Broadcasts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Balances" Association="Self.FK_Users_Balances">
+            <End Role="Balances" EntitySet="Balances" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransferShows_Broadcasts" Association="Self.FK_TransferShows_Broadcasts">
+            <End Role="Broadcasts" EntitySet="Broadcasts" />
+            <End Role="TransferShows" EntitySet="TransferShows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransferShows_Ethers" Association="Self.FK_TransferShows_Ethers">
+            <End Role="Ethers" EntitySet="Ethers" />
+            <End Role="TransferShows" EntitySet="TransferShows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TVCompanyModelContainer" CdmEntityContainer="TVCompanyEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="TVCompanyModel.Accounts">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="Account_Id" ColumnName="Account_Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Advertisements">
+            <EntityTypeMapping TypeName="TVCompanyModel.Advertisements">
+              <MappingFragment StoreEntitySet="Advertisements">
+                <ScalarProperty Name="Advertisement_Id" ColumnName="Advertisement_Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DesiredShowTime_Id" ColumnName="DesiredShowTime_Id" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="AgeRestriction_Id" ColumnName="AgeRestriction_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="IsPurchased" ColumnName="IsPurchased" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdvertisementShows">
+            <EntityTypeMapping TypeName="TVCompanyModel.AdvertisementShows">
+              <MappingFragment StoreEntitySet="AdvertisementShows">
+                <ScalarProperty Name="AdvertisementShow_Id" ColumnName="AdvertisementShow_Id" />
+                <ScalarProperty Name="Advertisement_Id" ColumnName="Advertisement_Id" />
+                <ScalarProperty Name="Ether_Id" ColumnName="Ether_Id" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgeRestrictions">
+            <EntityTypeMapping TypeName="TVCompanyModel.AgeRestrictions">
+              <MappingFragment StoreEntitySet="AgeRestrictions">
+                <ScalarProperty Name="AgeRestriction_Id" ColumnName="AgeRestriction_Id" />
+                <ScalarProperty Name="MinAge" ColumnName="MinAge" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Balances">
+            <EntityTypeMapping TypeName="TVCompanyModel.Balances">
+              <MappingFragment StoreEntitySet="Balances">
+                <ScalarProperty Name="Balace_Id" ColumnName="Balace_Id" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="InternalCurrency" ColumnName="InternalCurrency" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Broadcasts">
+            <EntityTypeMapping TypeName="TVCompanyModel.Broadcasts">
+              <MappingFragment StoreEntitySet="Broadcasts">
+                <ScalarProperty Name="Broadcast_Id" ColumnName="Broadcast_Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="AgeRestriction_Id" ColumnName="AgeRestriction_Id" />
+                <ScalarProperty Name="Leading" ColumnName="Leading" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DesiredShowTimes">
+            <EntityTypeMapping TypeName="TVCompanyModel.DesiredShowTimes">
+              <MappingFragment StoreEntitySet="DesiredShowTimes">
+                <ScalarProperty Name="DesiredShowTime_Id" ColumnName="DesiredShowTime_Id" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ethers">
+            <EntityTypeMapping TypeName="TVCompanyModel.Ethers">
+              <MappingFragment StoreEntitySet="Ethers">
+                <ScalarProperty Name="Ether_Id" ColumnName="Ether_Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="TVCompanyModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransferShows">
+            <EntityTypeMapping TypeName="TVCompanyModel.TransferShows">
+              <MappingFragment StoreEntitySet="TransferShows">
+                <ScalarProperty Name="TransferShow_Id" ColumnName="TransferShow_Id" />
+                <ScalarProperty Name="Broadcast_Id" ColumnName="Broadcast_Id" />
+                <ScalarProperty Name="Ether_Id" ColumnName="Ether_Id" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TVCompanyModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Balance_Id" ColumnName="Balance_Id" />
+                <ScalarProperty Name="Account_Id" ColumnName="Account_Id" />
+                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

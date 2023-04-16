@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7fdbb706e6d8400c82f1f553213f5cc2" Name="Diagram1">
+        <EntityTypeShape EntityType="TVCompanyModel.Accounts" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TVCompanyModel.Advertisements" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TVCompanyModel.AdvertisementShows" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TVCompanyModel.AgeRestrictions" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TVCompanyModel.Balances" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TVCompanyModel.Broadcasts" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="TVCompanyModel.DesiredShowTimes" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TVCompanyModel.Ethers" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TVCompanyModel.Roles" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TVCompanyModel.TransferShows" Width="1.5" PointX="7.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TVCompanyModel.Users" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="TVCompanyModel.FK_Users_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TVCompanyModel.FK_Advertisements_AgeRestrictions" ManuallyRouted="false" />
+        <AssociationConnector Association="TVCompanyModel.FK_Advertisements_DesiredShowTimes" ManuallyRouted="false" />
+        <AssociationConnector Association="TVCompanyModel.FK_Advertisements_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="TVCompanyModel.FK_AdvertisementShows_Advertisements" ManuallyRouted="false" />
+        <AssociationConnector Association="TVCompanyModel.FK_AdvertisementShows_Ethers" ManuallyRouted="false" />
+        <AssociationConnector Association="TVCompanyModel.FK_Broadcasts_AgeRestrictions" ManuallyRouted="false" />
+        <AssociationConnector Association="TVCompanyModel.FK_Users_Balances" ManuallyRouted="false" />
+        <AssociationConnector Association="TVCompanyModel.FK_TransferShows_Broadcasts" ManuallyRouted="false" />
+        <AssociationConnector Association="TVCompanyModel.FK_TransferShows_Ethers" ManuallyRouted="false" />
+        <AssociationConnector Association="TVCompanyModel.FK_Users_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

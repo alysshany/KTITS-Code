@@ -1,0 +1,45 @@
+﻿<Window x:Class="IntersectionPointApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IntersectionPointApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition  Height="3*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <TextBox FontSize="24" Width="70" Name="aText" MaxLength="5"></TextBox>
+                <TextBlock Text="x" FontSize="24"></TextBlock>
+                <TextBlock Text="+" FontSize="24"></TextBlock>
+                <TextBox FontSize="24" Width="70" Name="bText" MaxLength="5"></TextBox>
+                <TextBlock Text="y" FontSize="24"></TextBlock>
+                <TextBlock Text="=" FontSize="24"></TextBlock>
+                <TextBox FontSize="24" Width="70" Name="cText" MaxLength="5"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox FontSize="24" Width="70" Name="dText" MaxLength="5"></TextBox>
+                <TextBlock Text="x" FontSize="24"></TextBlock>
+                <TextBlock Text="+" FontSize="24"></TextBlock>
+                <TextBox FontSize="24" Width="70" Name="eText" MaxLength="5"></TextBox>
+                <TextBlock Text="y" FontSize="24"></TextBlock>
+                <TextBlock Text="=" FontSize="24"></TextBlock>
+                <TextBox FontSize="24" Width="70" Name="fText" MaxLength="5"></TextBox>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <Button Content="Высчитать" FontSize="22" Click="ButtonClick"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

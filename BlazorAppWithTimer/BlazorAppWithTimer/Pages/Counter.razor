@@ -1,0 +1,53 @@
+﻿@page "/counter"
+@using BlazorAppWithTimer.Data
+@inject TimerService timerService
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<div>
+    <p><button @onclick="@(() => timerService.AddMinute())">Click to add minute</button></p>
+
+    <p>@timerService.timeLeft</p>
+    @if (timerService.timeLeft == new TimeSpan(0, 0, 0))
+    {
+        <p>@timerService.displayText</p>
+    }
+</div>
+
+@code {
+    private int currentCount = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (timerService.firstRender)
+        {
+            timerService.firstRender = false;
+            await StartTimer();
+        }
+        else
+        {
+            while (!timerService.isEnded)
+            {
+                await Task.Delay(1000);
+                StateHasChanged();
+            }
+        }
+    }
+
+    public async Task StartTimer()
+    {
+        while (timerService.timeLeft > new TimeSpan())
+        {
+            await Task.Delay(1000);
+            timerService.timeLeft = timerService.timeLeft.Subtract(new TimeSpan(0, 0, 1));
+            StateHasChanged();
+        }
+
+        if (timerService.timeLeft == new TimeSpan(0, 0, 0))
+        {
+            timerService.isEnded = true;
+        }
+    }
+}

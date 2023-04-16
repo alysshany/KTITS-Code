@@ -1,0 +1,15 @@
+﻿@using Data
+@inject NavigationManager Navigation
+<div style='float: right;' @onclick = "Clicking"> Name: @user?.Name</div>
+<br />
+<div style='float: right;'@onclick = "Clicking">Surname: @user?.Surname</div>
+
+@code {
+	[Parameter]
+	public User user { get; set; }
+
+    private void Clicking()
+    {
+        Navigation.NavigateTo("/main");
+    }
+}

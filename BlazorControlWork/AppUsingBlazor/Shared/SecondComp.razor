@@ -1,0 +1,23 @@
+﻿@using Data
+@inject NavigationManager Navigation
+@inject UsersComp usc
+<h3>UserComponent</h3>
+
+@if (usc.currentUser != null)
+{
+    <div class="card">
+        <p>Name:  @user.Name</p>
+        <p>Surname:  @user.Surname</p>
+        <p>Email: @user.Email</p>
+    </div>
+}
+
+@code {
+	[Parameter]
+	public User user { get; set; }
+
+    private void Clicking()
+    {
+        Navigation.NavigateTo("/main");
+    }
+}

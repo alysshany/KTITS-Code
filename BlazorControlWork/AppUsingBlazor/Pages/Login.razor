@@ -1,0 +1,63 @@
+﻿@page "/login"
+@using AppUsingBlazor.Data;
+@using Data;
+<PageTitle>Index</PageTitle>
+@inject NavigationManager Navigation
+@inject ILocalStorageService storageService
+@inject UsersComp usc
+@inject IJSRuntime JS
+<h1>Hello, User!</h1>
+
+<div class="card">
+    <h4 class="card-header">Login</h4>
+    <div class="card-body">
+    <EditForm Model="@userMod">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+        <hr>
+            <label for="email"><b>Login</b></label>
+            <InputText type="text" placeholder="Enter Login" name="login" id="login" required @bind-Value="userMod.Login" />
+            <br />
+            <label for="psw"><b>Password</b></label>
+            <InputText type="password" placeholder="Enter Password" name="psw" id="psw" required @bind-Value="userMod.Password" />
+            <br />
+        <hr>
+        <button type="submit" class="registerbtn" @onclick="Logining">LOG IN</button>
+        </EditForm>
+        <label>@loading</label>
+    </div>
+</div>
+@code {
+    private User userMod = new User();
+    private User user = new User();
+    private string loading = "";
+
+    private async void Logining()
+    {
+        loading = "Loading...";
+        if (userMod.Login != null && userMod.Password != null)
+        {
+            user = await DBConnection.FindByLoginAsync(userMod.Login);
+            if (user != null)
+            {
+                if (user.Password == userMod.Password)
+                {
+                    usc.currentUser = user;
+                    Navigation.NavigateTo("/counter");
+                    await storageService.SetAsync<User>("Autho", usc.currentUser);
+                }
+                else
+                {
+                    await JS.InvokeVoidAsync("alert", "No user found");
+                    loading = "Wrong password";
+                }
+            }
+            else
+            {
+                loading = "Wrong password or login";
+            }
+        }
+        StateHasChanged();
+    }
+}

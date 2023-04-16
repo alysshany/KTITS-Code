@@ -1,0 +1,27 @@
+﻿@page "/main"
+@using Data
+@inject NavigationManager Navigation
+@inject ILocalStorageService storageService
+@inject UsersComp usc
+<PageTitle>Main</PageTitle>
+
+<h1>User Data</h1>
+<SecondComp User = "@usc.currentUser"></SecondComp>
+
+<button @onclick="Logouting">LOG OUT</button>
+<button @onclick="ToMain">TO MAIN</button>
+
+@code {
+    private void Logouting()
+    {
+        usc.currentUser = null;
+        storageService.RemoveAsync("Autho");
+        Navigation.NavigateTo("/");
+        StateHasChanged();
+    }
+
+    private void ToMain()
+    {
+        Navigation.NavigateTo("/counter");
+    }
+}

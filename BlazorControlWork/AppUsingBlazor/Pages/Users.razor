@@ -1,0 +1,79 @@
+﻿@page "/counter"
+@using Data
+@using MongoDB.Driver.GridFS
+@inject NavigationManager Navigation
+@inject ILocalStorageService storageService
+@inject FileSystemService filess
+@inject UsersComp usc
+<PageTitle>Photos</PageTitle>
+
+<h1>Photos</h1>
+<UserComponent User = "@usc.currentUser"></UserComponent>
+@inject FileSystemService fileSysServ
+<InputFile OnChange="@LoadFiles" multiple  />
+<table class="table">
+        <thead>
+            <tr>
+                <th>Photo name</th>
+                <th>Show photo</th>
+                <th>Show button</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var img in images)
+            {
+                <tr>
+                    <td>@img </td>
+                    <td><img src = "Images/@currentImg" width = "60" height = "50" alt = ""/> </td>
+                    <td><button @onclick = "() => ClickingImage(img)">View</button></td>
+                </tr>
+            }
+        </tbody>
+
+</table>
+
+<button @onclick="Logouting">LOG OUT</button>
+
+@code {
+    List<string> images;
+    string? currentImg;
+    List<IBrowserFile> _loadedFiles = new();
+
+    protected override void OnInitialized()
+    {
+        images = filess.UploadImg();
+    }
+
+    private void ClickingImage(string image)
+    {
+        currentImg = image;
+    }
+
+	private void Logouting()
+    {
+        usc.currentUser = null;
+        Navigation.NavigateTo("/");
+        storageService.RemoveAsync("Autho");
+        StateHasChanged();
+    }
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        _loadedFiles.Clear();
+
+        foreach (var file in e.GetMultipleFiles(e.FileCount))
+        {
+            _loadedFiles.Add(file);
+            Stream stream = file.OpenReadStream(2000000);
+            await fileSysServ.UploadImageToDb(stream, file.Name);
+            fileSysServ.DownloadFileToProject(file);
+            stream.Dispose();
+        }
+        RenderAll();
+    }
+
+    void RenderAll()
+    {
+        images = fileSysServ.FindFiles();
+    }
+}

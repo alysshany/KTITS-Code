@@ -5,6 +5,9 @@ using SeleniumExtras.WaitHelpers;
 using System.Net;
 using System.Text;
 using System.Collections.ObjectModel;
+using ParsingTask.DB;
+using MongoDB.Bson;
+using MongoDB.Driver.GridFS;
 
 namespace ConsoleApp
 {
@@ -44,7 +47,7 @@ namespace ConsoleApp
             IWebDriver driver = new ChromeDriver();
             WebClient client = new WebClient();
             var listOfLinks = new List<string>();
-            string baseDirectory = "C:\\Lots\\";
+            
 
             driver.Navigate().GoToUrl("https://torgi.gov.ru/new/public/lots/reg");
 
@@ -139,45 +142,10 @@ namespace ConsoleApp
                         landPurpose = ((driver.FindElement(By.XPath("//*[contains(text(), ' Цель предоставления земельного участка ')]"))).FindElement(By.XPath(".."))).FindElement(By.CssSelector("div[class='attr_value']")).Text.Trim();
                     }
 
-                    string lotDirectory = baseDirectory + lotId;
+                    
+                    //SavingToFile(driver, client, lotId, lotTitle,startingPrice, auctionStep, lotType, lotSub, lotDescription, locationSubject, location, objectCategory, ownershipForm, landPurpose);
+                    SavingToDataBase(driver, client, lotId, lotTitle, startingPrice, auctionStep, lotType, lotSub, lotDescription, locationSubject, location, objectCategory, ownershipForm, landPurpose);
 
-                    if (!Directory.Exists(lotDirectory))
-                    {
-                        Directory.CreateDirectory(lotDirectory);
-                    }
-
-
-                    // Создаем файл info.txt и записываем в него характеристики земельного участка
-                    var infoFilePath = Path.Combine(lotDirectory, "info.txt");
-                    using (var infoFile = new StreamWriter(infoFilePath, false, Encoding.UTF8))
-                    {
-                        infoFile.WriteLine($"Наименование: {lotTitle}");
-                        infoFile.WriteLine($"Начальная цена: {startingPrice}");
-                        infoFile.WriteLine($"Шаг аукциона: {auctionStep}");
-                        infoFile.WriteLine($"Вид торгов: {lotType}");
-                        infoFile.WriteLine($"Предмет торгов (наименование лота): {lotSub}");
-                        infoFile.WriteLine($"Описание лота: {lotDescription}");
-                        infoFile.WriteLine($"Субъект местонахождения имущества: {locationSubject}");
-                        infoFile.WriteLine($"Местонахождение имущества: {location}");
-                        infoFile.WriteLine($"Категория объекта: {objectCategory}");
-                        infoFile.WriteLine($"Форма собственности: {ownershipForm}");
-
-                        infoFile.WriteLine($"Цель предоставления земельного участка: {landPurpose}");
-                    }
-
-                    // Скачиваем изображение, если оно есть
-                    try
-                    {
-                        var imgUrl = driver.FindElement(By.CssSelector("img[class='selected-image-list-item']")).GetAttribute("src");
-                        var imgFileName = "image.png";
-                        var imgFilePath = Path.Combine(lotDirectory, imgFileName);
-
-                        client.DownloadFile(imgUrl, imgFilePath);
-                    }
-                    catch (NoSuchElementException)
-                    {
-                        // Нет изображения
-                    }
                 }
 
             }
@@ -185,6 +153,92 @@ namespace ConsoleApp
             // закрытие браузера
             driver.Quit();
             
+        }
+
+        public static void SavingToFile(IWebDriver driver, WebClient client, string lotId, string lotTitle, string startingPrice, string auctionStep, string lotType, string lotSub, string lotDescription, string locationSubject, string location, string objectCategory, string ownershipForm, string landPurpose)
+        {
+            string baseDirectory = "C:\\Lots\\";
+            string lotDirectory = baseDirectory + lotId;
+
+            if (!Directory.Exists(lotDirectory))
+            {
+                Directory.CreateDirectory(lotDirectory);
+            }
+
+
+
+            // Создаем файл info.txt и записываем в него характеристики земельного участка
+            var infoFilePath = Path.Combine(lotDirectory, "info.txt");
+            using (var infoFile = new StreamWriter(infoFilePath, false, Encoding.UTF8))
+            {
+                infoFile.WriteLine($"Наименование: {lotTitle}");
+                infoFile.WriteLine($"Начальная цена: {startingPrice}");
+                infoFile.WriteLine($"Шаг аукциона: {auctionStep}");
+                infoFile.WriteLine($"Вид торгов: {lotType}");
+                infoFile.WriteLine($"Предмет торгов (наименование лота): {lotSub}");
+                infoFile.WriteLine($"Описание лота: {lotDescription}");
+                infoFile.WriteLine($"Субъект местонахождения имущества: {locationSubject}");
+                infoFile.WriteLine($"Местонахождение имущества: {location}");
+                infoFile.WriteLine($"Категория объекта: {objectCategory}");
+                infoFile.WriteLine($"Форма собственности: {ownershipForm}");
+
+                infoFile.WriteLine($"Цель предоставления земельного участка: {landPurpose}");
+            }
+
+            // Скачиваем изображение, если оно есть
+            try
+            {
+                var imgUrl = driver.FindElement(By.CssSelector("img[class='selected-image-list-item']")).GetAttribute("src");
+                var imgFileName = "image.png";
+                var imgFilePath = Path.Combine(lotDirectory, imgFileName);
+
+                client.DownloadFile(imgUrl, imgFilePath);
+            }
+            catch (NoSuchElementException)
+            {
+                // Нет изображения
+            }
+        }
+
+        public static void SavingToDataBase(IWebDriver driver, WebClient client, string lotId, string lotTitle, string startingPrice, string auctionStep, string lotType, string lotSub, string lotDescription, string locationSubject, string location, string objectCategory, string ownershipForm, string landPurpose)
+        {
+            if (DBConnection.FindByTitle(lotId) == null)
+            {
+                string imgUrl = null;
+
+                try
+                {
+                    imgUrl = driver.FindElement(By.CssSelector("img[class='selected-image-list-item']")).GetAttribute("src");
+                    var imageBytes = new byte[0];
+                    imageBytes = client.DownloadData(imgUrl);
+
+                    DBConnection.SavingImageToDataBase(imageBytes, lotId);
+                    //DBConnection.DownloadToLocal(imgUrl);
+                }
+                catch (NoSuchElementException)
+                {
+                    // Нет изображения
+                }
+
+                LotInfo lotInfo = new LotInfo()
+                {
+                    NumberOfLot = lotId,
+                    Title = lotTitle,
+                    StartingPrice = startingPrice,
+                    AuctionStep = auctionStep,
+                    LotType = lotType,
+                    LotSub = lotSub,
+                    LotDescription = lotDescription,
+                    LocationSubject = locationSubject,
+                    Location = location,
+                    ObjectCategory = objectCategory,
+                    OwnershipForm = ownershipForm,
+                    LandPurpose = landPurpose,
+                    ImageUrl = imgUrl
+                };
+
+                DBConnection.AddToDataBase(lotInfo);
+            }
         }
     }
 }

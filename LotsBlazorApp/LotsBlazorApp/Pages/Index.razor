@@ -99,7 +99,7 @@
         IWebDriver driver = new ChromeDriver();
         WebClient client = new WebClient();
         var listOfLinks = new List<string>();
-            
+
 
         driver.Navigate().GoToUrl("https://torgi.gov.ru/new/public/lots/reg");
 
@@ -241,8 +241,8 @@
 
         // закрытие браузера
         driver.Quit();
-        _navigationManager.NavigateTo("/");
-        
+        OnInitialized();
+
     }
 
     public void SavingToDataBase()
@@ -386,10 +386,9 @@
             }
 
         }
-        _navigationManager.NavigateTo("/");
         // закрытие браузера
         driver.Quit();
-        
+        OnInitialized();
     }
 
 }
